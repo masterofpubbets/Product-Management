@@ -1,0 +1,44 @@
+pipeline {
+    agent any // Use any available agent
+
+    parameters {
+        booleanParam(name: 'SEND_NOTIFY', defaultValue: false, description: 'Send notification on build status?')
+        choice(name: 'Deploy_Type', choices: ['Test', 'Production'], description: 'Type of the Deployment')
+        string(name: 'App_Name', defaultValue: 'digital twin', description: 'Name of the Off')
+    }
+
+    environment {
+        DOCKER_IMAGE = 'your-docker-image-name'
+        TEST_COMMAND = 'npm test'
+        DEPLOY_TARGET = 'your-deployment-server'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                //sh "docker build -t ${DOCKER_IMAGE} ."
+                echo 'build'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Test'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploy'
+            }
+        }
+    }
+    post {
+        always {
+            echo 'Succeeded'
+        }
+        failure {
+            echo 'Failed'
+        }
+    }
+}

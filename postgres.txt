@@ -1,0 +1,7 @@
+p555eao75ESLAM_postgress2025
+
+postgres
+
+192.168.18.102
+
+5432

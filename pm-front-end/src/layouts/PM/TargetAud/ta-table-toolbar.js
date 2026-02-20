@@ -1,0 +1,173 @@
+import PropTypes from 'prop-types';
+import { useCallback } from 'react';
+// @mui
+import Stack from '@mui/material/Stack';
+import MenuItem from '@mui/material/MenuItem';
+import Checkbox from '@mui/material/Checkbox';
+import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
+import IconButton from '@mui/material/IconButton';
+import FormControl from '@mui/material/FormControl';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+import Select from '@mui/material/Select';
+// components
+import Iconify from 'src/components/iconify';
+import CustomPopover, { usePopover } from 'src/components/custom-popover';
+
+// ----------------------------------------------------------------------
+
+export default function TATableToolbar({
+                                         filters,
+                                         onFilters,
+                                         //
+                                         filter1,
+                                         filter2,
+                                         filter1Name,
+                                         filter2Name,
+                                         handleExport
+                                       }) {
+  const popover = usePopover();
+
+  const handleFilterName = useCallback(
+    (event) => {
+      onFilters('name', event.target.value);
+    },
+    [onFilters]
+  );
+
+  const handleFilter1 = useCallback(
+    (event) => {
+      onFilters(
+        'filter1',
+        typeof event.target.value === 'string' ? event.target.value.split(',') : event.target.value
+      );
+    },
+    [onFilters]
+  );
+
+  const handleFilter2 = useCallback(
+    (event) => {
+      onFilters(
+        'filter2',
+        typeof event.target.value === 'string' ? event.target.value.split(',') : event.target.value
+      );
+    },
+    [onFilters]
+  );
+
+  const handleClickExport = () => {
+    popover.onClose();
+    handleExport();
+  }
+
+  return (
+    <>
+      <Stack
+        spacing={2}
+        alignItems={{ xs: 'flex-end', md: 'center' }}
+        direction={{
+          xs: 'column',
+          md: 'row',
+        }}
+        sx={{
+          p: 2.5,
+          pr: { xs: 2.5, md: 1 },
+        }}
+      >
+        <FormControl
+          sx={{
+            flexShrink: 0,
+            width: { xs: 1, md: 200 },
+          }}
+        >
+          <InputLabel>{filter1Name}</InputLabel>
+
+          <Select
+            multiple
+            value={filters.filter1}
+            onChange={handleFilter1}
+            input={<OutlinedInput label={filter1Name} />}
+            renderValue={(selected) => selected.map((value) => value).join(', ')}
+            sx={{ textTransform: 'capitalize' }}
+          >
+            {filter1.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                <Checkbox
+                  disableRipple
+                  size="small"
+                  checked={filters.filter1.includes(option.value)}
+                />
+                {option.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl
+          sx={{
+            flexShrink: 0,
+            width: { xs: 1, md: 200 },
+          }}
+        >
+          <InputLabel>{filter2Name}</InputLabel>
+
+          <Select
+            multiple
+            value={filters.filter2}
+            onChange={handleFilter2}
+            input={<OutlinedInput label={filter2Name} />}
+            renderValue={(selected) => selected.map((value) => value).join(', ')}
+            sx={{ textTransform: 'capitalize' }}
+          >
+            {filter2.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                <Checkbox
+                  disableRipple
+                  size="small"
+                  checked={filters.filter2.includes(option.value)}
+                />
+                {option.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <Stack direction="row" alignItems="center" spacing={2} flexGrow={1} sx={{ width: 1 }}>
+          <TextField
+            fullWidth
+            value={filters.name}
+            onChange={handleFilterName}
+            placeholder="Search..."
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
+                </InputAdornment>
+              ),
+            }}
+          />
+
+          <IconButton onClick={popover.onOpen}>
+            <Iconify icon="eva:more-vertical-fill" />
+          </IconButton>
+        </Stack>
+      </Stack>
+
+      <CustomPopover
+        open={popover.open}
+        onClose={popover.onClose}
+        arrow="right-top"
+        sx={{ width: 140 }}
+      >
+        <MenuItem
+          onClick={handleClickExport}
+        >
+          <Iconify icon="solar:export-bold" />
+          Export
+        </MenuItem>
+      </CustomPopover>
+    </>
+  );
+}
+

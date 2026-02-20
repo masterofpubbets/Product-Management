@@ -1,0 +1,63 @@
+.canvas {
+  display: grid;
+  padding: 10px;
+  height: 90vh;
+  gap: 6px;
+  grid-template-areas:
+      'partner activity prop relation segment'
+      'partner res prop channel segment'
+      'cost cost rev rev rev';
+
+}
+.container div {
+  background-color: #f1f1f1;
+  border: 1px solid black;
+  padding: 10px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.partner {
+  grid-area: partner;
+}
+.activity {
+  grid-area: activity;
+}
+.prop {
+  grid-area: prop;
+}
+.relation {
+  grid-area: relation;
+}
+.segment {
+  grid-area: segment;
+}
+.res {
+  grid-area: res;
+}
+.channel {
+  grid-area: channel;
+}
+.cost {
+  grid-area: cost;
+}
+.rev {
+  grid-area: rev;
+}
+
+@media (max-width: 790px) {
+  .canvas {
+    grid-template-areas:
+      'partner'
+      'activity'
+      'prop'
+      'relation'
+      'segment'
+      'res'
+      'channel'
+      'cost'
+      'rev'
+  }
+}
+
+

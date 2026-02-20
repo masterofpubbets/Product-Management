@@ -1,0 +1,38 @@
+{
+  "name": "Common",
+  "request": {
+    "type": "http",
+    "url": "http://127.0.0.1:3002/api/strategy/getstrategy",
+    "scripts": {
+      "preRequest": "",
+      "postResponse": ""
+    },
+    "method": "POST",
+    "queryParams": [],
+    "headers": [
+      {
+        "id": 1767442949290,
+        "key": "x-auth-token",
+        "value": "ceb3ae98-0058-4e5d-9d1d-1db35ecc6cad",
+        "isEnabled": true,
+        "description": "",
+        "dataType": "string"
+      },
+      {
+        "id": 1767442973997,
+        "key": "allow-google-analytics",
+        "value": "yes",
+        "isEnabled": true,
+        "description": "",
+        "dataType": "string"
+      }
+    ],
+    "body": "{\n  \"id\": 4\n}",
+    "contentType": "application/json",
+    "auth": {
+      "currentAuthType": "INHERIT",
+      "authConfigStore": {}
+    },
+    "pathVariables": []
+  }
+}
